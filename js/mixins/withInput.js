@@ -4,6 +4,8 @@ djs.withInput = (function () {
 
 		var self = this;
 
+		console.log('gridInput');
+
 		self.game.input.onDown.add(function() {
             if(_.isNull(self.nextTile) || _.isUndefined(self.nextTile)) return;
             self.moveToTile(self.nextTile);
@@ -30,8 +32,6 @@ djs.withInput = (function () {
 
 				self.nextTile = tile;
 			}
-
-			// console.log(inBounds);
 		});
 	}
 
