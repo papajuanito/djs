@@ -34,12 +34,35 @@ djs.Map.prototype.load = function() {
         }
     }
 
-    self.pathfinder = self.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
-
-    
+    self.pathfinder = self.game.plugins.add(Phaser.Plugin.PathFinderPlugin);    
     self.pathfinder.setGrid(self.tilesArray, [0]);
     // self.pathfinder._easyStar.enableDiagonals();
 
+};
+
+djs.Map.prototype.update = function () {
+    var self = this;
+};
+
+djs.Map.prototype.pathBetweenTiles = function (tileFrom, tileTo, callback) {
+    var self = this;
+
+    self.pathfinder.setCallbackFunction(callback);
+
+    self.pathfinder.preparePathCalculation(tileFrom, tileTo);
+    self.pathfinder.calculatePath();
+};
+
+djs.Map.prototype.drawPath = function(path, callback) {
+
+    var self = this;
+
+    self.tilesGroup.forEach(function(tile) {
+        tile.tint = tile.adjacent ? 0xf1f297 : 0xffffff;
+    });
+    _.each(path, function(tile, index) {
+        self.tilesArray[tile.x][tile.y].tint = 0x70ff7a;
+    });
 };
 
 djs.Map.prototype.findPathTo = function (tileX, tileY) {
@@ -80,9 +103,9 @@ djs.Map.prototype.input = function() {
 
 	self.game.iso.unproject(self.game.input.activePointer.position, self.cursorPos);
 
-    self.tilesGroup.forEach(function(tile) {
-        tile.tint = tile.adjacent ? 0xf1f297 : 0xffffff;
-    });
+    // self.tilesGroup.forEach(function(tile) {
+    //     tile.tint = tile.adjacent ? 0xf1f297 : 0xffffff;
+    // });
 
 	self.tilesGroup.forEach(function (tile) {
         // console.log('here');

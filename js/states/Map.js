@@ -44,7 +44,7 @@ djs.Map.prototype = {
     update: function () {
         var self = this;
         self.game.player.gridInputUpdate();
-        // self.game.map.input();
+        self.game.map.update();
     }, 
     render: function()
     {
