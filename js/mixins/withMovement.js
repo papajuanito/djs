@@ -11,6 +11,36 @@ djs.withMovement = (function () {
 		this.indexY = tile.indexY;
 	}
 
+	function findPathBetweenTiles(tileFrom, tileTo) {
+		console.log(tileFrom, tileTo);	
+	}
+
+	function findPathToTile(tile) {
+
+		var self = this;
+
+		self.pathfinder.setCallbackFunction(function(path) {
+	        path = path || [];
+
+	        return path;
+
+	        // console.log(path);
+
+	        _.each(path, function(tile, index) {
+	            self.game.map.tilesArray[tile.x][tile.y].tint = 0x70ff7a;
+	        });
+
+	        // if(path.length) {
+	        //     self.pathfinder.oldX = tileX;
+	        //     self.pathfinder.oldY = tileY;
+	        //     self.pathfinder.oldPath = path;
+	        // }
+	    });
+
+	    self.pathfinder.preparePathCalculation([self.indexX, self.indexY], [tile.indexX,tile.indexY]);
+	    self.pathfinder.calculatePath();
+	}
+
 	//This function retrieves the adjacent tiles using stamina 
 	function adjacentTiles(tile, tiles, group) {
 		var self = this;
@@ -53,6 +83,8 @@ djs.withMovement = (function () {
 	return function() {
 		this.moveToTile = moveToTile;
 		this.adjacentTiles = adjacentTiles;
+		this.findPathToTile = findPathToTile;
+		this.findPathBetweenTiles = findPathBetweenTiles;
 	};
 })();
 

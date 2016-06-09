@@ -12,11 +12,26 @@ djs.withInput = (function () {
         });
 	}
 
+	function gridInputUpdate() {
+
+		var self = this;
+
+		self.game.iso.unproject(self.game.input.activePointer.position, self.cursorPos);
+
+		self.game.map.tilesGroup.forEach(function(tile) {
+			var inBounds = tile.isoBounds.containsXY(self.cursorPos.x, self.cursorPos.y);
+
+			if(inBounds && tile.adjacent) {
+				// self.adjacentTiles(tile, self.game.map.tilesArray, self.game.map.tilesGroup);
+				self.findPathToTile(tile);
+			}
+
+			// console.log(inBounds);
+		});
+	}
+
 	return function() {
 		this.gridInput = gridInput;
+		this.gridInputUpdate = gridInputUpdate;
 	};
 })();
-
-// djs.withMovement.call(djs.Character.prototype);
-
-// var character = new djs.Character();

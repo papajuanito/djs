@@ -14,7 +14,7 @@ djs.Map.prototype.load = function() {
 	var self = this,
         tile;
 
-    self.tilesArray = self.createArray(20, 20);
+    self.tilesArray = self.createArray(7, 7);
 
     // console.log(testTiles[5]);
     var xPos,

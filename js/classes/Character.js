@@ -1,9 +1,8 @@
 djs.Character = function(game, isoX, isoY, isoZ, key, frame) {
-
 	Phaser.Plugin.Isometric.IsoSprite.call(this, game, isoX, isoY, isoZ, key, frame);
-	
 	this.game = game;
 	this.stamina = 5;
+	this.cursorPos = new Phaser.Plugin.Isometric.Point3();
 };
 
 djs.Character.prototype = Object.create(Phaser.Plugin.Isometric.IsoSprite.prototype);
@@ -21,5 +20,7 @@ djs.Character.prototype.load = function (tile) {
     this.indexY = tile.indexY;
 
     this.game.physics.isoArcade.enable(this);
+    this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+    this.pathfinder.setGrid(this.game.map.tilesArray, [0]);
 }
 
