@@ -1,4 +1,5 @@
 import Map from 'objects/Map';
+import Character from 'objects/Character';
 
 class MapState extends Phaser.State {
 
@@ -19,10 +20,15 @@ class MapState extends Phaser.State {
 	}
 
 	create() {
+		this.game.map = new Map(this.game);
+        this.game.map.load();
 
-		var self = this;
-		self.game.map = new Map(self.game);
-        self.game.map.load();
+        this.game.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup)
+
+        this.game.map.tileAdjacentTiles(this.game.map.tilesArray[0][6], this.game.player.stamina);
+
+        this.game.map.moveMapObject(this.game.player, this.game.map.tilesArray[1][6])
+
 	}
 
 	update() {

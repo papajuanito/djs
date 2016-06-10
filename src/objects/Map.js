@@ -36,6 +36,61 @@ class Map {
 	    // self.pathfinder.setGrid(self.tilesArray, [0]);
 	}
 
+	moveMapObject (mapObject, tile) {
+		console.log(mapObject, tile);
+
+		mapObject.isoX = tile.isoX;
+		mapObject.isoY = tile.isoY;
+
+	}
+
+	//
+	tileAdjacentTiles (tile, length) {
+		var self = this;
+
+		var adjacentTiles = [];
+
+		// self.frame.forEach(function(isoTile) {
+		// 	console.log(isoTile);
+		// });
+
+	    // group.forEach(function(isoTile) {
+	    //     isoTile.tint = 0xffffff;
+	    //     isoTile.adjacent = false;
+	    // });
+
+	    var indexX = tile.indexX;
+	    var indexY = tile.indexY;
+
+	    var stamina = length;
+	    var limitX = (indexX + stamina) > this.tilesArray.length - 1 ? this.tilesArray.length - 1 : indexX + stamina;
+	    var limitY = (indexY + stamina) > this.tilesArray.length - 1 ? this.tilesArray.length - 1 : indexY + stamina;
+	    // var limitY = indexY ;
+
+	    var startX = (indexX - stamina) < 0 ? 0 : indexX - stamina;
+	    var startY = (indexY - stamina) < 0 ? 0 : indexY - stamina;
+
+	    for(let x = startX; x <= limitX; x++) {
+	        for(let y = startY; y <= limitY; y++) {
+
+
+	            if(_.isUndefined(self.tilesArray[x][y])) return;
+
+	            if(Math.abs(x - indexX) + Math.abs(y - indexY) <= stamina) {
+	                self.tilesArray[x][y].adjacent = true;
+	                self.tilesArray[x][y].tint = 0xf1f297;
+
+	                adjacentTiles.push(self.tilesArray[x][y]);
+
+	            } else {
+	                self.tilesArray[x][y].adjacent = false;
+	            }
+	        }
+	    }
+
+	    // console.log(adjacentTiles);
+	}
+
 	static createArray(length) {
 		var self = this;
 
