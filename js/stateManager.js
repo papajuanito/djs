@@ -1,5 +1,12 @@
-var w = 800,
-  h = 600;
+
+
+
+var w = window,
+    d = document,
+    e = d.documentElement,
+    g = d.getElementsByTagName('body')[0],
+    x = w.innerWidth || e.clientWidth || g.clientWidth,
+    h = w.innerHeight|| e.clientHeight|| g.clientHeight;
 
 /*
 For Fullscreen put this code:

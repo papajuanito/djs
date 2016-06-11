@@ -26,14 +26,21 @@ class MapState extends Phaser.State {
         this.game.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup)
 
         this.game.map.tileAdjacentTiles(this.game.map.tilesArray[0][6], this.game.player.stamina);
-
-        this.game.map.moveMapObject(this.game.player, this.game.map.tilesArray[1][6])
-
 	}
 
 	update() {
-
+        this.game.map.gridUpdate((tile) => {
+            var tileFrom = [this.game.player.indexX, this.game.player.indexY],
+                tileTo = [tile.indexX, tile.indexY];
+            this.game.map.pathBetweenTiles(tileFrom, tileTo, path => {
+                this.game.map.drawPath(path);
+            });
+        });
 	}
+
+    render() {
+        this.game.debug.text(this.game.time.fps || '--', 2, 14, "#a7aebe");
+    }
 }
 
 export default MapState;

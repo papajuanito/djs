@@ -7,46 +7,43 @@ class Map {
 	}
 
 	load() {
-		var self = this,
-	        tile;
+		// var self = this,
+	 //        tile;
 
-	    self.tilesArray = Map.createArray(7, 7);
+	    this.tilesArray = Map.createArray(7, 7);
 
 	    // console.log(testTiles[5]);
-	    var xPos,
+	    let xPos,
 	        yPos;
 
-	    for (var x = 0; x < self.tilesArray.length; x++) {
-	        for(var y = 0; y < self.tilesArray[x].length; y++) {
+	    for (let x = 0; x < this.tilesArray.length; x++) {
+	        for(let y = 0; y < this.tilesArray[x].length; y++) {
 	            xPos = x * 38;
 	            yPos = y * 38;
 
 	            // self.tilesArray[x][y] = self.game.add.isoSprite(xPos, yPos, 0, 'tile', 0, self.tilesGroup);
-	            self.tilesArray[x][y] = self.game.add.isoSprite(xPos, yPos, -36, 'tileset', 'tile20', self.tilesGroup);
-	            self.tilesArray[x][y].index = 0;
-	            self.tilesArray[x][y].indexY = y;
-	            self.tilesArray[x][y].indexX = x;
-	            self.tilesArray[x][y].anchor.set(0.5, 1);
+	            this.tilesArray[x][y] = this.game.add.isoSprite(xPos, yPos, -36, 'tileset', 'tile20', this.tilesGroup);
+	            this.tilesArray[x][y].index = 0;
+	            this.tilesArray[x][y].indexY = y;
+	            this.tilesArray[x][y].indexX = x;
+	            this.tilesArray[x][y].anchor.set(0.5, 1);
 	        }
 	    }
 
 	    // self.game.plugins.add;
 
-	    self.pathfinder = self.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
-	    // self.pathfinder.setGrid(self.tilesArray, [0]);
+	    this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+	    this.pathfinder.setGrid(this.tilesArray, [0]);
 	}
 
 	moveMapObject (mapObject, tile) {
 		console.log(mapObject, tile);
-
 		mapObject.isoX = tile.isoX;
 		mapObject.isoY = tile.isoY;
-
 	}
 
 	//
 	tileAdjacentTiles (tile, length) {
-		var self = this;
 
 		var adjacentTiles = [];
 
@@ -74,16 +71,16 @@ class Map {
 	        for(let y = startY; y <= limitY; y++) {
 
 
-	            if(_.isUndefined(self.tilesArray[x][y])) return;
+	            if(_.isUndefined(this.tilesArray[x][y])) return;
 
 	            if(Math.abs(x - indexX) + Math.abs(y - indexY) <= stamina) {
-	                self.tilesArray[x][y].adjacent = true;
-	                self.tilesArray[x][y].tint = 0xf1f297;
+	                this.tilesArray[x][y].adjacent = true;
+	                this.tilesArray[x][y].tint = 0xf1f297;
 
-	                adjacentTiles.push(self.tilesArray[x][y]);
+	                adjacentTiles.push(this.tilesArray[x][y]);
 
 	            } else {
-	                self.tilesArray[x][y].adjacent = false;
+	                this.tilesArray[x][y].adjacent = false;
 	            }
 	        }
 	    }
@@ -91,15 +88,44 @@ class Map {
 	    // console.log(adjacentTiles);
 	}
 
-	static createArray(length) {
-		var self = this;
+	pathBetweenTiles(tileFrom, tileTo, callback) {
+	    this.pathfinder.setCallbackFunction(callback);
+	    this.pathfinder.preparePathCalculation(tileFrom, tileTo);
+	    this.pathfinder.calculatePath();
+	}
 
+	drawPath(path) {
+		this.tilesGroup.forEach(tile => {
+			tile.tint = tile.adjacent ? 0xf1f297 : 0xffffff;
+		});
+
+		_.each(path, (tile, index) => {
+			this.tilesArray[tile.x][tile.y].tint = 0x70ff7a;
+		});
+	}
+
+	gridUpdate(callback) {
+
+		this.game.iso.unproject(this.game.input.activePointer.position, this.cursorPos);
+
+		this.nextTile = null;
+
+		this.tilesGroup.forEach(tile => {
+			var inBounds = tile.isoBounds.containsXY(this.cursorPos.x, this.cursorPos.y);
+
+			if(inBounds && tile.adjacent) {
+				callback(tile);
+			}
+		});
+	}
+
+	static createArray(length) {
 	    var arr = new Array(length || 0),
 	        i = length;
 
 	    if (arguments.length > 1) {
 	        var args = Array.prototype.slice.call(arguments, 1);
-	        while(i--) arr[length-1 - i] = self.createArray.apply(this, args);
+	        while(i--) arr[length-1 - i] = this.createArray.apply(this, args);
 	    }
 
 	    return arr;
