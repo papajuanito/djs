@@ -1,4 +1,5 @@
 import Inventory from 'objects/Inventory';
+import Equipment from 'objects/Equipment';
 
 class Character extends Phaser.Plugin.Isometric.IsoSprite {
 	constructor(game, isoX, isoY, isoZ, key, frame) {
@@ -15,7 +16,8 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 	    this.indexX = 0;
 	    this.indexY = 6;
 
-	    this.inventory = new Inventory();
+	    // this.inventory = new Inventory();
+	    this.equipment = new Equipment();
 
 	    // console.log(this.inventory.listItems());
 

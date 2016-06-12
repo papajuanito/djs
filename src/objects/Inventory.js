@@ -2,12 +2,8 @@ import Item from 'objects/Item';
 
 class Inventory {
 	constructor() {
-		console.log('Inventory');
-
 		this.items = [];
-
 		let item = new Item('Claymore', 'Huge Sword', 'rare', 'weapon');
-
 		this.addItem(item);
 
 	}

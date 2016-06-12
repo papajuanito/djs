@@ -35,11 +35,16 @@ class MapState extends Phaser.State {
         // this.cursors = this.game.input.keyboard.createCursorKeys();
 
         this.game.input.keyboard.onDownCallback = function () {
+
+            console.log(this.game.input.keyboard.event.keyCode);
+
             if (this.game.input.keyboard.event.keyCode == 73 ) {
 
                 console.log(this.game.player.inventory.listItems());
 
                 console.log('lets open the inventory');
+            } else if(this.game.input.keyboard.event.keyCode == 69) {
+                console.log(this.game.player.equipment.listItems());
             }
         };
 	}
