@@ -4,7 +4,8 @@ import Character from 'objects/Character';
 class MapState extends Phaser.State {
 
 	preload() {
-		this.game.load.image('tile', 'assets/img/tile.png');
+
+		this.game.load.image('tile', 'assets/img/tilebig.png');
         this.game.load.image('cube', 'assets/img/cube.png');
 
         this.game.load.atlasJSONHash('tileset', 'assets/img/tilesets/tiles.png', 'assets/img/tilesets/tiles.json');
@@ -20,15 +21,31 @@ class MapState extends Phaser.State {
 	}
 
 	create() {
-		this.game.map = new Map(this.game);
+
+        this.game.map = new Map(this.game);
+		
         this.game.map.load();
 
-        this.game.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup)
+        if(!this.loaded) {
+            this.game.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup);
+        }
 
         this.game.map.tileAdjacentTiles(this.game.map.tilesArray[0][6], this.game.player.stamina);
+
+        // this.cursors = this.game.input.keyboard.createCursorKeys();
+
+        this.game.input.keyboard.onDownCallback = function () {
+            if (this.game.input.keyboard.event.keyCode == 73 ) {
+
+                console.log(this.game.player.inventory.listItems());
+
+                console.log('lets open the inventory');
+            }
+        };
 	}
 
 	update() {
+
         this.game.map.gridUpdate((tile) => {
             var tileFrom = [this.game.player.indexX, this.game.player.indexY],
                 tileTo = [tile.indexX, tile.indexY];

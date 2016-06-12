@@ -1,5 +1,6 @@
 import BootState from 'states/BootState';
 import MapState from 'states/MapState';
+import EquipmentViewState from 'states/EquipmentViewState';
 
 class Game extends Phaser.Game {
 
@@ -15,6 +16,7 @@ class Game extends Phaser.Game {
 		super(x, y, Phaser.AUTO, 'content', null);
 		this.state.add('BootState', BootState, false);
 		this.state.add('MapState', MapState, false);
+		this.state.add('EquipmentViewState', EquipmentViewState, false);
 		this.state.start('BootState');
 	}
 

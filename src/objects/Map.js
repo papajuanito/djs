@@ -10,7 +10,7 @@ class Map {
 		// var self = this,
 	 //        tile;
 
-	    this.tilesArray = Map.createArray(7, 7);
+	    this.tilesArray = Map.createArray(10, 10);
 
 	    // console.log(testTiles[5]);
 	    let xPos,
@@ -56,6 +56,10 @@ class Map {
 	    //     isoTile.adjacent = false;
 	    // });
 
+	    this.tilesGroup.forEach(isoTile => {
+	    	isoTile.tint = 0x363636;
+	    });
+
 	    var indexX = tile.indexX;
 	    var indexY = tile.indexY;
 
@@ -81,6 +85,7 @@ class Map {
 
 	            } else {
 	                this.tilesArray[x][y].adjacent = false;
+	                // this.tilesArray[x][y].tint = 0x000000;
 	            }
 	        }
 	    }
@@ -96,7 +101,7 @@ class Map {
 
 	drawPath(path) {
 		this.tilesGroup.forEach(tile => {
-			tile.tint = tile.adjacent ? 0xf1f297 : 0xffffff;
+			tile.tint = tile.adjacent ? 0xf1f297 : 0x363636;
 		});
 
 		_.each(path, (tile, index) => {
