@@ -7,6 +7,7 @@ class MapState extends Phaser.State {
 
 		this.game.load.image('tile', 'assets/img/tilebig.png');
         this.game.load.image('cube', 'assets/img/cube.png');
+        this.game.load.image('inventory', 'assets/img/inventory.jpg');
 
         this.game.load.atlasJSONHash('tileset', 'assets/img/tilesets/tiles.png', 'assets/img/tilesets/tiles.json');
 
@@ -36,15 +37,21 @@ class MapState extends Phaser.State {
 
         this.game.input.keyboard.onDownCallback = function () {
 
-            console.log(this.game.input.keyboard.event.keyCode);
+            // console.log(this.game.input.keyboard.event.keyCode);
 
-            if (this.game.input.keyboard.event.keyCode == 73 ) {
 
-                console.log(this.game.player.inventory.listItems());
-
-                console.log('lets open the inventory');
-            } else if(this.game.input.keyboard.event.keyCode == 69) {
-                console.log(this.game.player.equipment.listItems());
+            switch(this.game.input.keyboard.event.keyCode) {
+                case 73:
+                    this.game.player.inventory.displayEquipment();
+                    break;
+                case 69:
+                    console.log(this.game.player.equipment.listItems());
+                    break;
+                case 82:
+                    this.game.player.equipment.removeFromInventory(0);
+                    break;
+                case 27:
+                    this.inventory.destroy();
             }
         };
 	}

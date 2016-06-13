@@ -1,5 +1,6 @@
 import Inventory from 'objects/Inventory';
 import Equipment from 'objects/Equipment';
+import Item from 'objects/Item';
 
 class Character extends Phaser.Plugin.Isometric.IsoSprite {
 	constructor(game, isoX, isoY, isoZ, key, frame) {
@@ -17,12 +18,20 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 	    this.indexY = 6;
 
 	    // this.inventory = new Inventory();
-	    this.equipment = new Equipment();
+	    this.inventory = new Inventory(this.game);
+	    this.loadEquipment();
 
 	    // console.log(this.inventory.listItems());
 
 	    this.game.physics.isoArcade.enable(this);
 
+	}
+
+	loadEquipment() {
+		var helmet = new Item('Helmet of Valor', 'Helmet of a valorous knight.', 'rare', 'helm', true);
+		var torso = new Item('Wait of Valor', 'Waist of a valorous knight.', 'rare', 'waist', true);
+		this.inventory.addToInventory(helmet);
+		this.inventory.addToInventory(torso);
 	}
 }
 
