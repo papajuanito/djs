@@ -1,6 +1,6 @@
 class Item {
 	constructor(name, description, rarity, type, equipped = false) {
-		console.log('Item');
+		// console.log('Item');
 
 		this.RARITY = {
 			common : 0,
@@ -25,6 +25,10 @@ class Item {
 		this.type = this.TYPE[type];
 
 		this.equipped = equipped;
+	}
+
+	test() {
+		console.log('test');
 	}
 }
 

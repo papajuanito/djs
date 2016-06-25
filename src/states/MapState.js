@@ -6,6 +6,7 @@ class MapState extends Phaser.State {
 	preload() {
 
 		this.game.load.image('tile', 'assets/img/tilebig.png');
+        this.game.load.image('armor', 'assets/img/armor.png');
         this.game.load.image('cube', 'assets/img/cube.png');
         this.game.load.image('inventory', 'assets/img/inventory.jpg');
 
@@ -28,27 +29,31 @@ class MapState extends Phaser.State {
         this.game.map.load();
 
         if(!this.loaded) {
-            this.game.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup);
+            this.player = new Character(this.game, this.game.map.tilesArray[0][6].isoX, this.game.map.tilesArray[0][6].isoY, 0, 'cube', 0, this.game.map.tilesGroup);
         }
 
-        this.game.map.tileAdjacentTiles(this.game.map.tilesArray[0][6], this.game.player.stamina);
+        this.game.map.tileAdjacentTiles(this.game.map.tilesArray[0][6], 3);
 
         // this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.game.input.keyboard.onDownCallback = function () {
+        this.game.input.keyboard.onDownCallback = () => {
 
             // console.log(this.game.input.keyboard.event.keyCode);
 
 
             switch(this.game.input.keyboard.event.keyCode) {
                 case 73:
-                    this.game.player.inventory.displayEquipment();
+                    // console.log(this.player);
+
+                    this.player.events.onItemEquip('poop');
+
+                    // this.game.player.inventory.displayEquipment();
                     break;
                 case 69:
-                    console.log(this.game.player.equipment.listItems());
+                    // console.log(this.game.player.equipment.listItems());
                     break;
                 case 82:
-                    this.game.player.equipment.removeFromInventory(0);
+                    this.player.equipment.removeFromInventory(0);
                     break;
                 case 27:
                     this.inventory.destroy();

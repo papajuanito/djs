@@ -1,0 +1,16 @@
+[
+	{
+		"id" : 0,
+		"name": "Helmet of Valor",
+		"description": "Helmet of a valorous knight.",
+		"rarity": "rare",
+		"type": "helm"
+	},
+	{
+		"id" : 1,
+		"name": "Waist of Valor",
+		"description": "Waist of a valorous knight.",
+		"rarity": "rare",
+		"type": "waist"
+	},
+]

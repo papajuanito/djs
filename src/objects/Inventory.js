@@ -13,7 +13,7 @@ class Inventory {
 
 	addToInventory(item) {
 
-		console.log(item);
+		// console.log(item);
 
 		if(item.equipped) {
 			this.equipment[item.type] = item;
@@ -36,7 +36,11 @@ class Inventory {
 	}
 
 	displayEquipment() {
-		console.log(this.equipment);
+		// console.log(this.equipment);
+
+		this.equipment.forEach(function(item, index) {
+			console.log(item, index);
+		});
 	}
 
 	displayItems() {
