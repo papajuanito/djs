@@ -45,7 +45,7 @@ class MapState extends Phaser.State {
                 case 73:
                     // console.log(this.player);
 
-                    this.player.events.onItemEquip('poop');
+                    // this.player.events.onItemEquip('poop');
 
                     // this.game.player.inventory.displayEquipment();
                     break;

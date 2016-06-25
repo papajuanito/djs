@@ -5,6 +5,12 @@ class Inventory {
 		this.game = game;
 		this.items = [];
 		this.equipment = [6];
+
+		this.setupSignalEvents();
+	}
+
+	setupSignalEvents() {
+		this.onItemEquip = new Phaser.Signal();
 	}
 
 	listItems() {
@@ -17,6 +23,7 @@ class Inventory {
 
 		if(item.equipped) {
 			this.equipment[item.type] = item;
+			this.onItemEquip.dispatch(item);
 		} else {
 			this.items.push(item);
 		}

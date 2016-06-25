@@ -14,7 +14,7 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 
 		this.stats = new KnightStatCollection();
 
-		console.log(this.stats);
+		// this.onItemEqui
 
 		// this.load();
 
@@ -33,44 +33,18 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 
 	    this.game.physics.isoArcade.enable(this);
 
+	    this.setupSignalEvents();
+
+	    this.loadEquipment();
+
 	}
-	
-	load() {
 
-		let player = store.get('player');
+	test(item) {
+		console.log('test', item);
+	}
 
-		let items = store.get('items');
-
-		if(_.isUndefined(player)) {
-
-			console.log('writing');
-
-			player = {
-				stamina: 3,
-				class: 1,
-				level: 30,
-				inventory: {
-					equipment: [
-						1, null, 3, null, 5, 6
-					],
-					items: [
-						1, 2, 3, 4, 5, 10
-					]
-				}
-			};
-
-			store.set('player', player);
-		}
-
-		this.stamina = player.stamina;
-
-		console.log(player.inventory.equipment);
-
-		player.inventory.equipment.forEach(function(itemId, index) {
-			if(!_.isNull(itemId)) {
-				console.log(items[itemId]);
-			};
-		});
+	setupSignalEvents() {
+		this.inventory.onItemEquip.add(this.test, this);
 	}
 
 	loadEquipment() {
