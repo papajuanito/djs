@@ -23,7 +23,11 @@ class Inventory {
 
 		if(item.equipped) {
 			this.equipment[item.type] = item;
-			this.onItemEquip.dispatch(item);
+			// console.log(item.modifiers);
+
+			item.modifiers.forEach( modifier => {
+				this.onItemEquip.dispatch(modifier);
+			});
 		} else {
 			this.items.push(item);
 		}

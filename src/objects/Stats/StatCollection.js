@@ -1,12 +1,18 @@
 import Stat from 'objects/Stats/Stat';
+import StatType from 'objects/Stats/StatType';
+import * as StatModifiers from 'objects/Stats/Modifiers/modifiers';
 
 class StatCollection {
 	constructor() {
-		this.stats = [4];
+		this.stats = [5];
 		this.configureStats();
 	}
 
-	//Retrieve Stat by StatType enum
+	/**
+	 * Retrieves Stat from collection by StatType
+	 * @param  {StatType} statType
+	 * @return {Stat}
+	 */
 	getStat(statType) {
 
 		if(!_.isUndefined(this.stats[statType.ordinal]) && !_.isNull(this.stats[statType.ordinal])) {
@@ -16,10 +22,25 @@ class StatCollection {
 		return null;
 	}
 
-	//Creates a new Stat and inserts into the collection using StatType enum
+	/**
+	 * Create a Stat and inserts into collection.
+	 * @param  {StatType}
+	 * @param  {Number}
+	 */
 	createStat(statType, baseValue) {
-		let stat = new Stat(statType, baseValue);
+		const stat = new Stat(statType, baseValue);
 		this.stats[statType.ordinal] = stat;
+	}
+
+	addStatModifier(modifier) {
+		const statType = StatType.enumValueOf(modifier.stat);
+		const stat = this.getStat(statType);
+
+		modifier = new StatModifiers.AddToMaxStatModifier();
+
+		stat.addModifier(modifier);
+
+		console.log(stat);
 	}
 }
 

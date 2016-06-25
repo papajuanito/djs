@@ -1,5 +1,5 @@
 class Item {
-	constructor(name, description, rarity, type, equipped = false) {
+	constructor(name, description, rarity, type, equipped = false, modifiers = []) {
 		// console.log('Item');
 
 		this.RARITY = {
@@ -25,6 +25,8 @@ class Item {
 		this.type = this.TYPE[type];
 
 		this.equipped = equipped;
+
+		this.modifiers = modifiers;
 	}
 
 	test() {

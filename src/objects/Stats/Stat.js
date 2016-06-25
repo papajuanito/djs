@@ -5,12 +5,10 @@ import StatType from 'objects/Stats/StatType';
 class Stat {
 
 	constructor(type, value) {
-
-		// this.type = this.StatType
 		this.type = type;
 		this.baseValue = value;
 		this.value = value;
-		// this.statModifiers = [];
+		this.statModifiers = [];
 	}
 
 	addModifier(modifier) {

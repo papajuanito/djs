@@ -44,14 +44,69 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 	}
 
 	setupSignalEvents() {
-		this.inventory.onItemEquip.add(this.test, this);
+
+		// console.log(this);
+		this.inventory.onItemEquip.add(this.stats.addStatModifier, this.stats);
 	}
 
 	loadEquipment() {
-		var helmet = new Item('Helmet of Valor', 'Helmet of a valorous knight.', 'rare', 'helm', true);
-		var torso = new Item('Wait of Valor', 'Waist of a valorous knight.', 'rare', 'waist', true);
-		this.inventory.addToInventory(helmet);
-		this.inventory.addToInventory(torso);
+		var items = [
+			{
+				"id" : 0,
+				"name": "Helmet of Valor",
+				"description": "Helmet of a valorous knight.",
+				"rarity": "rare",
+				"equipped": true,
+				"type": "helm",
+				"modifiers": [
+					{
+						"id": 0,
+						"stat": "STRENGTH",
+						"value": 5,
+						"type": 2
+					},
+					{
+						"id": 1,
+						"stat": "FAITH",
+						"value": 2,
+						"type": 2
+					}
+				]
+			},
+			{
+				"id" : 1,
+				"name": "Waist of Valor",
+				"description": "Waist of a valorous knight.",
+				"rarity": "rare",
+				"type": "waist",
+				"equipped": true,
+				"modifiers": [
+					{
+						"id": 0,
+						"stat": "STRENGTH",
+						"value": 5,
+						"type": 2
+					},
+					{
+						"id": 1,
+						"stat": "FAITH",
+						"value": 2,
+						"type": 2
+					}
+				]
+			}
+		];
+
+		items.forEach( item => {
+			this.inventory.addToInventory(
+				new Item(item.name, item.description, item.rarity, item.type, item.equipped, item.modifiers)
+			);
+		});
+
+		// var helmet = new Item('Helmet of Valor', 'Helmet of a valorous knight.', 'rare', 'helm', true);
+		// var torso = new Item('Wait of Valor', 'Waist of a valorous knight.', 'rare', 'waist', true);
+		// this.inventory.addToInventory(helmet);
+		// this.inventory.addToInventory(torso);
 	}
 }
 
