@@ -1,8 +1,12 @@
 import StatModifier from 'objects/Stats/StatModifier';
 
 class AddToMaxStatModifier extends StatModifier {
-	constructor() {
-		super();
+	constructor(value, stacks = true) {
+		super(value, stacks);
+	}
+
+	apply(statValue, modValue) {
+		return modValue;
 	}
 }
 

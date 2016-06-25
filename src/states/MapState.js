@@ -38,19 +38,15 @@ class MapState extends Phaser.State {
 
         this.game.input.keyboard.onDownCallback = () => {
 
-            // console.log(this.game.input.keyboard.event.keyCode);
+            console.log(this.game.input.keyboard.event.keyCode);
 
 
             switch(this.game.input.keyboard.event.keyCode) {
                 case 73:
-                    // console.log(this.player);
-
-                    // this.player.events.onItemEquip('poop');
-
-                    // this.game.player.inventory.displayEquipment();
+                    this.player.inventory.displayEquipment();
                     break;
-                case 69:
-                    // console.log(this.game.player.equipment.listItems());
+                case 67:
+                    this.player.characterStatus();
                     break;
                 case 82:
                     this.player.equipment.removeFromInventory(0);

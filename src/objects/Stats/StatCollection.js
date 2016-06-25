@@ -36,11 +36,9 @@ class StatCollection {
 		const statType = StatType.enumValueOf(modifier.stat);
 		const stat = this.getStat(statType);
 
-		modifier = new StatModifiers.AddToMaxStatModifier();
+		modifier = new StatModifiers.AddToMaxStatModifier(modifier.value);
 
 		stat.addModifier(modifier);
-
-		console.log(stat);
 	}
 }
 

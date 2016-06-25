@@ -39,10 +39,6 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 
 	}
 
-	test(item) {
-		console.log('test', item);
-	}
-
 	setupSignalEvents() {
 
 		// console.log(this);
@@ -107,6 +103,20 @@ class Character extends Phaser.Plugin.Isometric.IsoSprite {
 		// var torso = new Item('Wait of Valor', 'Waist of a valorous knight.', 'rare', 'waist', true);
 		// this.inventory.addToInventory(helmet);
 		// this.inventory.addToInventory(torso);
+	}
+
+	characterStatus() {
+
+		this.stats.stats.forEach( (stat, index) => {
+
+			let labelText = stat.type.name + ': ' + (stat.baseValue + stat.modValue);
+
+			let choiseLabel = this.game.add.text(20, 50 * (index + 1), labelText, { font: '30px Arial', fill: '#fff' });
+	        choiseLabel.anchor.setTo(0, 0.5);
+		});
+
+
+		// 
 	}
 }
 

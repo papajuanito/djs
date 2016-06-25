@@ -1,6 +1,7 @@
 class StatModifier {
-	constructor() {
-		console.log('StatModifier');
+	constructor(value, stacks = true) {
+		this.value = value;
+		this.stacks = stacks;
 	}
 }
 
